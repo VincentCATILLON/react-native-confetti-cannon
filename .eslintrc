@@ -1,0 +1,62 @@
+{
+  "env": {
+    "es6": true
+  },
+  "extends": [
+    "eslint-config-i-am-meticulous/react-native"
+  ],
+  "settings": {
+    "import/resolver": {
+      "babel-module": {
+        "extensions": [
+          ".ios.js",
+          ".js",
+          ".json"
+        ]
+      }
+    }
+  },
+  "rules": {
+    "import/no-extraneous-dependencies": "off",
+    "flowtype/no-mutable-array": "off",
+    "flowtype/require-exact-type": "off",
+    "flowtype/no-unused-expressions": "off",
+    "flowtype/no-dupe-keys": "off",
+    "flowtype/require-valid-file-annotation": [
+      "error",
+      "always",
+      {
+        "annotationStyle": "line"
+      }
+    ],
+    "react/prop-types": "off",
+    "react/jsx-curly-brace-presence": [
+      "error",
+      "never"
+    ],
+    "react/sort-comp": [
+      "error",
+      {
+        "order": [
+          "props",
+          "state",
+          "type-annotations",
+          "instance-variables",
+          "static-methods",
+          "lifecycle",
+          "everything-else",
+          "render"
+        ]
+      }
+    ],
+    "import/no-namespace": "off",
+    "import/max-dependencies": [
+      "error",
+      {
+        "max": 20
+      }
+    ],
+    "react/no-access-state-in-setstate": "off",
+    "react/no-deprecated": "off"
+  }
+}
