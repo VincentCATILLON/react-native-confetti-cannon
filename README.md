@@ -2,6 +2,8 @@
   <img height="400" src=".github/demo.gif" alt="React-native-confetti-cannon">
 </p>
 
+[![CircleCI](https://circleci.com/gh/VincentCATILLON/react-native-confetti-cannon.svg?style=svg)](https://circleci.com/gh/VincentCATILLON/react-native-confetti-cannon)
+
 ## Installation
 
 ```console
