@@ -1,0 +1,36 @@
+{
+  "name": "react-native-confetti-cannon",
+  "version": "1.0.0",
+  "description": "React Native confetti explosion and fall like iOS does.",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "npm run lint && npm run flow",
+    "lint": "eslint src --ext .js,.json",
+    "flow": "flow"
+  },
+  "contributors": [
+    "Vincent Catillon <contact@vincent-catillon.fr>"
+  ],
+  "author": "Vincent Catillon",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-module-resolver": "^3.1.3",
+    "eslint": "^5.12.1",
+    "eslint-config-i-am-meticulous": "^11.0.0",
+    "eslint-import-resolver-babel-module": "^5.0.1",
+    "eslint-plugin-flowtype": "^3.2.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-native": "^3.6.0",
+    "react": "16.4.1",
+    "react-native": "0.56"
+  },
+  "dependencies": {
+    "flow-bin": "0.75"
+  }
+}
