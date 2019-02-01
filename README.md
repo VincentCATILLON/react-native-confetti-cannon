@@ -1,5 +1,3 @@
-## <img height="32" src=".github/logo.png" alt="React-native-confetti-cannon" style="margin-right: 12px;">React-native-confetti-cannon
-
 <p align="center">
   <img height="400" src=".github/demo.gif" alt="React-native-confetti-cannon">
 </p>
