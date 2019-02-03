@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="400" src=".github/demo.gif" alt="React-native-confetti-cannon">
+  <img height="400" src="https://github.com/VincentCATILLON/react-native-confetti-cannon/raw/master/.github/demo.gif" alt="React-native-confetti-cannon">
 </p>
 
 [![CircleCI](https://circleci.com/gh/VincentCATILLON/react-native-confetti-cannon.svg?style=svg)](https://circleci.com/gh/VincentCATILLON/react-native-confetti-cannon)
