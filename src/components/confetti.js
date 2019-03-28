@@ -9,7 +9,7 @@ type Props = {|
   left: Animated.Interpolation,
   bottom: Animated.Interpolation,
   transform: Array<{ [key: string]: Animated.Interpolation }>,
-  color:string,
+  color: string,
   opacity: Animated.Interpolation,
 |};
 
@@ -23,7 +23,7 @@ class Confetti extends React.PureComponent<Props> {
   backgroundColor: string = this.props.color;
 
   render() {
-    const { left, bottom, transform, opacity} = this.props;
+    const { left, bottom, transform, opacity } = this.props;
     const { width, height, isRounded, backgroundColor } = this;
     const style = { left, bottom, width, height, backgroundColor, transform, opacity};
 

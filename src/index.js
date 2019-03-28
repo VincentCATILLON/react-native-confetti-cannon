@@ -14,7 +14,7 @@ type Props = {|
   },
   explosionSpeed?: number,
   fallSpeed?: number,
-  colors?: Array<string>,
+  customColors?: Array<string>,
   fadeOut?: boolean
 |};
 
@@ -34,7 +34,7 @@ type State = {|
 |};
 
 const TOP_MIN = 0.7;
-const colors: Array<string> =[
+const DEFAULT_COLORS: Array<string> =[
   '#e67e22',
   '#2ecc71',
   '#3498db',
@@ -103,9 +103,9 @@ class Explosion extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { origin, colors, fadeOut } = this.props;
+    const { origin, colors: customColors, fadeOut } = this.props;
     const { height, width } = Dimensions.get('window');
-    const colorsArray:Array<string> = colors ? colors : this.props.colors;
+    const colors = customColors || DEFAULT_COLORS;
     return (
       <React.Fragment>
         {this.state && this.state.items && this.state.items.map((item: Item, index: number) => {
@@ -136,13 +136,13 @@ class Explosion extends React.PureComponent<Props, State> {
 
           const opacity = this.animation.interpolate({
             inputRange: [0, 1, 1.8, 2],
-            outputRange: [1,1,1,fadeOut ? 0 : 1]
+            outputRange: [1, 1, 1, fadeOut ? 0 : 1]
           });
 
           const transform = [{rotateX}, {rotateY}, {rotateZ}, {translateX}];
 
           return (
-            <Confetti color={colorsArray[Math.round(randomValue(0, colorsArray.length - 1))]} left={left} bottom={bottom} transform={transform} opacity={opacity} key={index} />
+            <Confetti color={colors[Math.round(randomValue(0, colors.length - 1))]} left={left} bottom={bottom} transform={transform} opacity={opacity} key={index} />
           );
         })}
       </React.Fragment>
