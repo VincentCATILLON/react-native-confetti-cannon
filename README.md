@@ -31,4 +31,4 @@ const MyComponent = () => (
 | explosionSpeed | number                 | explosion duration (ms) from origin to top |          | 350            |
 | fallSpeed      | number                 | fall duration (ms) from top to bottom      |          | 3000           |
 | fadeOut        | boolean                | make the confettis disappear at the end    |          | false          |
-| colors         | Array<string>          | give your own colors to the confettis      |          | default colors |
+| colors   | Array<string>          | give your own colors to the confettis      |          | default colors |
