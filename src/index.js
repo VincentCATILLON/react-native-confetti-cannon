@@ -14,7 +14,7 @@ type Props = {|
   },
   explosionSpeed?: number,
   fallSpeed?: number,
-  customColors?: Array<string>,
+  colors?: Array<string>,
   fadeOut?: boolean
 |};
 
@@ -103,9 +103,10 @@ class Explosion extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { origin, colors: customColors, fadeOut } = this.props;
+    const { origin, colors, fadeOut } = this.props;
     const { height, width } = Dimensions.get('window');
-    const colors = customColors || DEFAULT_COLORS;
+    const { colors = DEFAULT_COLORS };
+    
     return (
       <React.Fragment>
         {this.state && this.state.items && this.state.items.map((item: Item, index: number) => {
