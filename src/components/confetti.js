@@ -23,7 +23,7 @@ class Confetti extends React.PureComponent<Props> {
   backgroundColor: string = this.props.color;
 
   render() {
-    const { left, bottom, transform, opacity} = this.props;
+    const { left, bottom, transform, opacity } = this.props;
     const { width, height, isRounded, backgroundColor } = this;
     const style = { left, bottom, width, height, backgroundColor, transform, opacity};
 
