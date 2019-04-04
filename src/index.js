@@ -92,12 +92,12 @@ class Explosion extends React.PureComponent<Props, State> {
       Animated.timing(this.animation, {
         toValue: 1,
         duration: explosionSpeed,
-        easing: Easing.out(Easing.cubic)
+        easing: Easing.out(Easing.quad)
       }),
       Animated.timing(this.animation, {
         toValue: 2,
         duration: fallSpeed,
-        easing: Easing.cubic
+        easing: Easing.quad
       }),
     ]).start();
   };
@@ -105,7 +105,7 @@ class Explosion extends React.PureComponent<Props, State> {
   render() {
     const { origin, colors = DEFAULT_COLORS, fadeOut } = this.props;
     const { height, width } = Dimensions.get('window');
-    
+
     return (
       <React.Fragment>
         {this.state && this.state.items && this.state.items.map((item: Item, index: number) => {
