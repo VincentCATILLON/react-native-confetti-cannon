@@ -56,16 +56,13 @@ class Explosion extends React.PureComponent<Props, State> {
 
   componentDidMount = () => {
     this.calculateItems();
-    setTimeout(() => {
-      this.animate()
-    }, 1000);
   };
 
   calculateItems = () => {
     const { count } = this.props;
     const items: Array<Item> = [];
 
-    Array.from(Array(count).keys()).forEach(() => {
+    Array(count).fill().map(() => {
       const item: Item = {
         leftDelta: randomValue(0, 1),
         topDelta: randomValue(TOP_MIN, 1),
@@ -81,7 +78,7 @@ class Explosion extends React.PureComponent<Props, State> {
 
     this.setState({
       items
-    });
+    }, () => this.animate());
   };
 
   animate = () => {
@@ -132,13 +129,11 @@ class Explosion extends React.PureComponent<Props, State> {
           const translateX = this.animation.interpolate({
             inputRange: [0, 0.4, 1.2, 2],
             outputRange: [0, -(item.swingDelta * 30), (item.swingDelta * 30), 0]
-          })
-
+          });
           const opacity = this.animation.interpolate({
             inputRange: [0, 1, 1.8, 2],
             outputRange: [1, 1, 1, fadeOut ? 0 : 1]
           });
-
           const transform = [{rotateX}, {rotateY}, {rotateZ}, {translateX}];
 
           return (
