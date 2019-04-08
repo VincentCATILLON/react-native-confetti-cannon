@@ -2,6 +2,11 @@
   "name": "react-native-confetti-cannon",
   "version": "1.1.2",
   "description": "React Native confetti explosion and fall like iOS does.",
+  "homepage": "https://github.com/vincentcatillon/react-native-confetti-cannon",
+  "bugs": {
+    "url": "https://github.com/vincentcatillon/react-native-confetti-cannon/issues",
+    "email": "contact@vincent-catillon.fr"
+  },
   "keywords": [
     "react",
     "react-native",
@@ -30,7 +35,8 @@
     "build:types": "flow-copy-source src lib"
   },
   "contributors": [
-    "Vincent Catillon <contact@vincent-catillon.fr>"
+    "Vincent Catillon <contact@vincent-catillon.fr>",
+    "Alan Langlois <alan@etaminstudio.com>"
   ],
   "author": "Vincent Catillon",
   "devDependencies": {
