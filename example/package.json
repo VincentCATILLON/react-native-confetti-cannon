@@ -1,0 +1,24 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "prestart": "rm -rf ./node_modules/react-native-confetti-cannon/src && cp -R ../src ./node_modules/react-native-confetti-cannon/src",
+    "start": "expo start",
+    "android": "npm run -s start --android",
+    "ios": "npm run -s start --ios",
+    "web": "npm run -s start --web",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "expo": "~37.0.3",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
+    "react-native-confetti-cannon": "*",
+    "react-native-web": "~0.11.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "babel-preset-expo": "~8.1.0"
+  },
+  "private": true
+}
