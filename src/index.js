@@ -31,8 +31,8 @@ type Item = {|
   }
 |};
 
-const TOP_MIN = 0.7;
-const DEFAULT_COLORS: Array<string> =[
+export const TOP_MIN = 0.7;
+export const DEFAULT_COLORS: Array<string> =[
   '#e67e22',
   '#2ecc71',
   '#3498db',
@@ -45,6 +45,8 @@ const DEFAULT_COLORS: Array<string> =[
   '#e74c3c',
   '#1abc9c'
 ];
+export const DEFAULT_EXPLOSION_SPEED = 350;
+export const DEFAULT_FALL_SPEED = 3000;
 
 class Explosion extends React.PureComponent<Props> {
   props: Props;
@@ -75,7 +77,12 @@ class Explosion extends React.PureComponent<Props> {
   };
 
   animate = () => {
-    const { explosionSpeed = 350, fallSpeed = 3000, onAnimationStart, onAnimationEnd } = this.props;
+    const {
+      explosionSpeed = DEFAULT_EXPLOSION_SPEED,
+      fallSpeed = DEFAULT_FALL_SPEED,
+      onAnimationStart,
+      onAnimationEnd
+    } = this.props;
 
     onAnimationStart && onAnimationStart(this.items);
 
