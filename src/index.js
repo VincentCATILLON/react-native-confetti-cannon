@@ -1,4 +1,4 @@
-// @flow strict
+// @flow
 
 import * as React from 'react';
 import { Animated, Dimensions, Easing } from 'react-native';
@@ -15,7 +15,9 @@ type Props = {|
   explosionSpeed?: number,
   fallSpeed?: number,
   colors?: Array<string>,
-  fadeOut?: boolean
+  fadeOut?: boolean,
+  onAnimationStart?: Array<Item> => void,
+  onAnimationEnd?: Array<Item> => void
 |};
 
 type Item = {|
@@ -29,12 +31,8 @@ type Item = {|
   }
 |};
 
-type State = {|
-  items?: Array<Item>
-|};
-
-const TOP_MIN = 0.7;
-const DEFAULT_COLORS: Array<string> =[
+export const TOP_MIN = 0.7;
+export const DEFAULT_COLORS: Array<string> =[
   '#e67e22',
   '#2ecc71',
   '#3498db',
@@ -47,42 +45,46 @@ const DEFAULT_COLORS: Array<string> =[
   '#e74c3c',
   '#1abc9c'
 ];
+export const DEFAULT_EXPLOSION_SPEED = 350;
+export const DEFAULT_FALL_SPEED = 3000;
 
-class Explosion extends React.PureComponent<Props, State> {
+class Explosion extends React.PureComponent<Props> {
   props: Props;
-  state: State;
 
   animation: Animated.Value = new Animated.Value(0);
 
+  items: Array<Item> = [];
+
+  constructor(props: Props) {
+    super(props);
+
+    const {count} = props;
+
+    this.items = Array(count).fill().map((): Item => ({
+      leftDelta: randomValue(0, 1),
+      topDelta: randomValue(TOP_MIN, 1),
+      swingDelta: randomValue(0.2, 1),
+      speedDelta: {
+        rotateX: randomValue(0.3, 1),
+        rotateY: randomValue(0.3, 1),
+        rotateZ: randomValue(0.3, 1)
+      }
+    }));
+  }
+
   componentDidMount = () => {
-    this.calculateItems();
-  };
-
-  calculateItems = () => {
-    const { count } = this.props;
-    const items: Array<Item> = [];
-
-    Array(count).fill().map(() => {
-      const item: Item = {
-        leftDelta: randomValue(0, 1),
-        topDelta: randomValue(TOP_MIN, 1),
-        swingDelta: randomValue(0.2, 1),
-        speedDelta: {
-          rotateX: randomValue(0.3, 1),
-          rotateY: randomValue(0.3, 1),
-          rotateZ: randomValue(0.3, 1)
-        }
-      };
-      items.push(item);
-    });
-
-    this.setState({
-      items
-    }, () => this.animate());
+    this.animate();
   };
 
   animate = () => {
-    const { explosionSpeed = 350, fallSpeed = 3000 } = this.props;
+    const {
+      explosionSpeed = DEFAULT_EXPLOSION_SPEED,
+      fallSpeed = DEFAULT_FALL_SPEED,
+      onAnimationStart,
+      onAnimationEnd
+    } = this.props;
+
+    onAnimationStart && onAnimationStart(this.items);
 
     Animated.sequence([
       Animated.timing(this.animation, {toValue: 0, duration: 0, useNativeDriver: true}),
@@ -98,7 +100,7 @@ class Explosion extends React.PureComponent<Props, State> {
         easing: Easing.quad,
         useNativeDriver: true
       }),
-    ]).start();
+    ]).start(() => onAnimationEnd && onAnimationEnd(this.items));
   };
 
   render() {
@@ -107,7 +109,7 @@ class Explosion extends React.PureComponent<Props, State> {
 
     return (
       <React.Fragment>
-        {this.state && this.state.items && this.state.items.map((item: Item, index: number) => {
+        {this && this.items && this.items.map((item: Item, index: number) => {
           const left = this.animation.interpolate({
             inputRange: [0, 1, 2],
             outputRange: [origin.x, item.leftDelta * width, item.leftDelta * width]
@@ -140,7 +142,13 @@ class Explosion extends React.PureComponent<Props, State> {
           const transform = [{rotateX}, {rotateY}, {rotate: rotateZ}, {translateX}];
 
           return (
-            <Confetti color={colors[Math.round(randomValue(0, colors.length - 1))]} containerTransform={containerTransform} transform={transform} opacity={opacity} key={index} />
+            <Confetti
+              color={colors[Math.round(randomValue(0, colors.length - 1))]}
+              containerTransform={containerTransform}
+              transform={transform}
+              opacity={opacity}
+              key={index}
+            />
           );
         })}
       </React.Fragment>

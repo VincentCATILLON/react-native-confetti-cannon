@@ -1,13 +1,21 @@
-// @flow strict
+// @flow
 
 import * as React from 'react';
 import { StyleSheet, Animated } from 'react-native';
 
 import { randomValue } from '../utils';
 
+type Interpolations = Array<{
+  translateX?: Animated.Interpolation,
+  translateY?: Animated.Interpolation,
+  rotate?: Animated.Interpolation,
+  rotateX?: Animated.Interpolation,
+  rotateY?: Animated.Interpolation
+}>;
+
 type Props = {|
-  containerTransform: Array<{ [key: string]: Animated.Interpolation }>,
-  transform: Array<{ [key: string]: Animated.Interpolation }>,
+  containerTransform: Interpolations,
+  transform: Interpolations,
   color: string,
   opacity: Animated.Interpolation,
 |};
