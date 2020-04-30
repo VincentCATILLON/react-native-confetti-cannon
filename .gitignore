@@ -10,3 +10,6 @@ yarn-error.log
 
 # babel
 lib
+
+# jest
+coverage
