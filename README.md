@@ -35,13 +35,24 @@ const MyComponent = () => (
 | fallSpeed        | number                 | fall duration (ms) from top to bottom      |          | 3000           |
 | fadeOut          | boolean                | make the confettis disappear at the end    |          | false          |
 | colors           | string[]               | give your own colors to the confettis      |          | default colors |
+| autoStart        | boolean                | give your own colors to the confettis      |          | true           |
 
 ## Events
 
+| Name              | Returns               | Description                                | Required | Default        |
+|-------------------|-----------------------|--------------------------------------------|----------|----------------|
+| onAnimationStart  | Item[]                | callback triggered at animation start      |          |                |
+| onAnimationResume | Item[]                | callback triggered at animation resume     |          |                |
+| onAnimationStop   | Item[]                | callback triggered at animation stop       |          |                |
+| onAnimationEnd    | Item[]                | callback triggered at animation end        |          |                |
+
+## Methods
+
 | Name             | Returns                | Description                                | Required | Default        |
 |------------------|------------------------|--------------------------------------------|----------|----------------|
-| onAnimationStart | Item[]                 | callback triggered at animation start      |          |                |
-| onAnimationEnd   | Item[]                 | callback triggered at animation end        |          |                |
+| start            | Item[]                 | start the animation programmatically       |          |                |
+| resume           | Item[]                 | resume the animation programmatically      |          |                |
+| stop             | Item[]                 | stop the animation programmatically        |          |                |
 
 ## Try yourself
 

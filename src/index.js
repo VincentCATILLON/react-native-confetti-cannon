@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 import { Animated, Dimensions, Easing } from 'react-native';
+import type { CompositeAnimation } from 'react-native/Libraries/Animated/src/AnimatedImplementation';
+import type { EndResult } from 'react-native/Libraries/Animated/src/animations/Animation';
 
 import Confetti from './components/confetti';
 import { randomValue } from './utils';
@@ -16,7 +18,10 @@ type Props = {|
   fallSpeed?: number,
   colors?: Array<string>,
   fadeOut?: boolean,
+  autoStart?: boolean,
   onAnimationStart?: Array<Item> => void,
+  onAnimationResume?: Array<Item> => void,
+  onAnimationStop?: Array<Item> => void,
   onAnimationEnd?: Array<Item> => void
 |};
 
@@ -50,15 +55,21 @@ export const DEFAULT_FALL_SPEED = 3000;
 
 class Explosion extends React.PureComponent<Props> {
   props: Props;
-
-  animation: Animated.Value = new Animated.Value(0);
-
+  start: () => void;
+  resume: () => void;
+  stop: () => void;
+  sequence: CompositeAnimation | null;
   items: Array<Item> = [];
+  animation: Animated.Value = new Animated.Value(0);
 
   constructor(props: Props) {
     super(props);
 
-    const {count} = props;
+    const { count } = this.props;
+
+    this.start = this.start.bind(this);
+    this.resume = this.resume.bind(this);
+    this.stop = this.stop.bind(this);
 
     this.items = Array(count).fill().map((): Item => ({
       leftDelta: randomValue(0, 1),
@@ -73,34 +84,59 @@ class Explosion extends React.PureComponent<Props> {
   }
 
   componentDidMount = () => {
-    this.animate();
+    const { autoStart = true } = this.props;
+
+    if (autoStart) {
+      this.start();
+    }
   };
 
-  animate = () => {
+  start = (resume?: boolean = false) => {
     const {
       explosionSpeed = DEFAULT_EXPLOSION_SPEED,
       fallSpeed = DEFAULT_FALL_SPEED,
       onAnimationStart,
+      onAnimationResume,
       onAnimationEnd
     } = this.props;
 
-    onAnimationStart && onAnimationStart(this.items);
+    if (resume) {
+      onAnimationResume && onAnimationResume(this.items);
+    } else {
+      this.sequence = Animated.sequence([
+        Animated.timing(this.animation, {toValue: 0, duration: 0, useNativeDriver: true}),
+        Animated.timing(this.animation, {
+          toValue: 1,
+          duration: explosionSpeed,
+          easing: Easing.out(Easing.quad),
+          useNativeDriver: true
+        }),
+        Animated.timing(this.animation, {
+          toValue: 2,
+          duration: fallSpeed,
+          easing: Easing.quad,
+          useNativeDriver: true
+        }),
+      ]);
 
-    Animated.sequence([
-      Animated.timing(this.animation, {toValue: 0, duration: 0, useNativeDriver: true}),
-      Animated.timing(this.animation, {
-        toValue: 1,
-        duration: explosionSpeed,
-        easing: Easing.out(Easing.quad),
-        useNativeDriver: true
-      }),
-      Animated.timing(this.animation, {
-        toValue: 2,
-        duration: fallSpeed,
-        easing: Easing.quad,
-        useNativeDriver: true
-      }),
-    ]).start(() => onAnimationEnd && onAnimationEnd(this.items));
+      onAnimationStart && onAnimationStart(this.items);
+    }
+
+    this.sequence && this.sequence.start(({finished}: EndResult) => {
+      if (finished) {
+        onAnimationEnd && onAnimationEnd(this.items);
+      }
+    });
+  };
+
+  resume = () => this.start(true);
+
+  stop = () => {
+    const { onAnimationStop } = this.props;
+
+    onAnimationStop && onAnimationStop(this.items);
+
+    this.sequence && this.sequence.stop();
   };
 
   render() {

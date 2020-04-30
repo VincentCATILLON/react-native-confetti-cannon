@@ -18,6 +18,9 @@
 ; Flow doesn't support platforms
 .*/Libraries/Utilities/LoadingView.js
 
+; Example folder
+example
+
 [untyped]
 .*/node_modules/@react-native-community/cli/.*/.*
 
