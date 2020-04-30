@@ -38,6 +38,19 @@ const MyComponent = () => (
 | onAnimationStart | (Array<Item>): void    | callback triggered at animation start      |          |                |
 | onAnimationEnd   | (Array<Item>): void    | callback triggered at animation end        |          |                |
 
+## Try yourself
+
+Deep into the `example` folder and run:
+
+```console
+npm install && npm start
+```
+
+And choose one of the following Expo commands:
+- `i`: open in iOS simulator
+- `a`: open in Android emulator
+- `w`: open in web browser
+
 ## :warning: Warning
 
 It is strongly recommended to use 1.2.0 or higher to avoid this warning introduced in [React-Native 0.62](https://github.com/react-native-community/releases/blob/master/CHANGELOG.md#deprecated):
