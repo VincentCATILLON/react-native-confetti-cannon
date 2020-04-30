@@ -1,4 +1,4 @@
-// @flow strict
+// @flow
 
 import * as React from 'react';
 import { Animated, Dimensions, Easing } from 'react-native';
@@ -16,8 +16,8 @@ type Props = {|
   fallSpeed?: number,
   colors?: Array<string>,
   fadeOut?: boolean,
-  onAnimationStart: Array<Item> => void,
-  onAnimtionEnd: Array<Item> => void
+  onAnimationStart?: Array<Item> => void,
+  onAnimationEnd?: Array<Item> => void
 |};
 
 type Item = {|
