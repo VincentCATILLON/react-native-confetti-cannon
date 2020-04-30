@@ -1,12 +1,13 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "prestart": "rm -rf ./node_modules/react-native-confetti-cannon/src && cp -R ../src ./node_modules/react-native-confetti-cannon/src",
+    "prestart": "npm run -s build",
     "start": "expo start",
     "android": "npm run -s start --android",
     "ios": "npm run -s start --ios",
     "web": "npm run -s start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "build": "rm -rf ./node_modules/react-native-confetti-cannon/src && cp -R ../src ./node_modules/react-native-confetti-cannon/src"
   },
   "dependencies": {
     "expo": "~37.0.3",
