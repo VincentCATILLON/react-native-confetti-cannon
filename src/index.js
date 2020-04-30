@@ -58,9 +58,9 @@ class Explosion extends React.PureComponent<Props> {
   start: () => void;
   resume: () => void;
   stop: () => void;
+  sequence: CompositeAnimation | null;
   items: Array<Item> = [];
   animation: Animated.Value = new Animated.Value(0);
-  sequence: CompositeAnimation | null;
 
   constructor(props: Props) {
     super(props);
