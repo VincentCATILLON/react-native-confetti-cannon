@@ -29,7 +29,7 @@
   "scripts": {
     "test": "npm run lint && npm run flow && npm run test:unit",
     "lint": "eslint src --ext .js,.json",
-    "flow": "flow",
+    "flow": "flow src",
     "test:unit": "jest src",
     "prepare": "npm run build:js && npm run build:types",
     "build:js": "babel src --out-dir lib -s --copy-files",
