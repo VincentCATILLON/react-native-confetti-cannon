@@ -137,7 +137,7 @@ class Explosion extends React.PureComponent<Props, State> {
             outputRange: [1, 1, 1, fadeOut ? 0 : 1]
           });
           const containerTransform = [{translateX: left}, {translateY: top}];
-          const transform = [{rotateX}, {rotateY}, {rotateZ}, {translateX}];
+          const transform = [{rotateX}, {rotateY}, {rotate: rotateZ}, {translateX}];
 
           return (
             <Confetti color={colors[Math.round(randomValue(0, colors.length - 1))]} containerTransform={containerTransform} transform={transform} opacity={opacity} key={index} />
