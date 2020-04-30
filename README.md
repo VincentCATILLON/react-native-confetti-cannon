@@ -25,14 +25,16 @@ const MyComponent = () => (
 
 ## Props
 
-| Name           | Type                   | Description                                | Required | Default        |
-|----------------|------------------------|--------------------------------------------|----------|----------------|
-| count          | number                 | items count to display                     | required |                |
-| origin         | {x: number, y: number} | animation position origin                  | required |                |
-| explosionSpeed | number                 | explosion duration (ms) from origin to top |          | 350            |
-| fallSpeed      | number                 | fall duration (ms) from top to bottom      |          | 3000           |
-| fadeOut        | boolean                | make the confettis disappear at the end    |          | false          |
-| colors         | Array<string>          | give your own colors to the confettis      |          | default colors |
+| Name             | Type                   | Description                                | Required | Default        |
+|------------------|------------------------|--------------------------------------------|----------|----------------|
+| count            | number                 | items count to display                     | required |                |
+| origin           | {x: number, y: number} | animation position origin                  | required |                |
+| explosionSpeed   | number                 | explosion duration (ms) from origin to top |          | 350            |
+| fallSpeed        | number                 | fall duration (ms) from top to bottom      |          | 3000           |
+| fadeOut          | boolean                | make the confettis disappear at the end    |          | false          |
+| colors           | Array<string>          | give your own colors to the confettis      |          | default colors |
+| onAnimationStart | (Array<Item>): void    | callback triggered at animation start      |          |                |
+| onAnimationEnd   | (Array<Item>): void    | callback triggered at animation end        |          |                |
 
 ## :warning: Warning
 
