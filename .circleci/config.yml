@@ -50,6 +50,18 @@ jobs:
           name: Flow
           command: yarn flow
 
+  unit:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: Unit tests
+          command: yarn test:unit
+
 workflows:
   version: 2
   tests:
@@ -59,5 +71,8 @@ workflows:
          requires:
            - dependencies
       - flow:
+         requires:
+           - dependencies
+      - unit:
          requires:
            - dependencies

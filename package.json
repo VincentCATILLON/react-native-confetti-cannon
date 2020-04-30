@@ -27,9 +27,10 @@
     "README.md"
   ],
   "scripts": {
-    "test": "npm run lint && npm run flow",
+    "test": "npm run lint && npm run flow && npm run test:unit",
     "lint": "eslint src --ext .js,.json",
     "flow": "flow",
+    "test:unit": "jest src",
     "prepare": "npm run build:js && npm run build:types",
     "build:js": "babel src --out-dir lib -s --copy-files",
     "build:types": "flow-copy-source src lib"
