@@ -2,8 +2,10 @@
   <img height="400" src="https://github.com/VincentCATILLON/react-native-confetti-cannon/raw/master/.github/demo.gif" alt="React-native-confetti-cannon">
 </p>
 
-![https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue](https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue)
 [![CircleCI](https://circleci.com/gh/VincentCATILLON/react-native-confetti-cannon.svg?style=svg)](https://circleci.com/gh/VincentCATILLON/react-native-confetti-cannon)
+![https://img.shields.io/npm/v/react-native-confetti-cannon/latest?color=%23292C33&label=%20&logo=npm](https://img.shields.io/npm/v/react-native-confetti-cannon/latest?color=%23292C33&label=%20&logo=npm)
+![https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue](https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue)
+![https://img.shields.io/github/stars/vincentcatillon/react-native-confetti-cannon?style=social](https://img.shields.io/github/stars/vincentcatillon/react-native-confetti-cannon?style=social)
 
 ## Installation
 
@@ -35,6 +37,19 @@ const MyComponent = () => (
 | colors           | Array<string>          | give your own colors to the confettis      |          | default colors |
 | onAnimationStart | (Array<Item>): void    | callback triggered at animation start      |          |                |
 | onAnimationEnd   | (Array<Item>): void    | callback triggered at animation end        |          |                |
+
+## Try yourself
+
+Deep into the `example` folder and run:
+
+```console
+npm install && npm start
+```
+
+And choose one of the following Expo commands:
+- `i`: open in iOS simulator
+- `a`: open in Android emulator
+- `w`: open in web browser
 
 ## :warning: Warning
 
