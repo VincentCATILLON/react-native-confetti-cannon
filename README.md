@@ -39,7 +39,8 @@ const MyComponent = () => (
 | fallSpeed        | number                 | fall duration (ms) from top to bottom      |          | 3000           |
 | fadeOut          | boolean                | make the confettis disappear at the end    |          | false          |
 | colors           | string[]               | give your own colors to the confettis      |          | default colors |
-| autoStart        | boolean                | give your own colors to the confettis      |          | true           |
+| autoStart        | boolean                | auto start the animation                   |          | true           |
+| autoStartDelay   | number                 | delay to wait before triggering animation  |          | 0              |
 
 ## Events
 
