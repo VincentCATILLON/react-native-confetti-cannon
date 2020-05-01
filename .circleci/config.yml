@@ -62,6 +62,19 @@ jobs:
           name: Unit tests
           command: yarn test:unit
 
+  deploy:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          name: Deploy
+          command: |
+            cd example
+            npm install
+            npm run deploy
+
 workflows:
   version: 2
   tests:
@@ -76,3 +89,9 @@ workflows:
       - unit:
          requires:
            - dependencies
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: storybook
