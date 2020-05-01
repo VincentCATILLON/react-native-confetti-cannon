@@ -19,6 +19,7 @@ type Props = {|
   colors?: Array<string>,
   fadeOut?: boolean,
   autoStart?: boolean,
+  autoStartDelay?: number,
   onAnimationStart?: () => void,
   onAnimationResume?: () => void,
   onAnimationStop?: () => void,
@@ -84,10 +85,10 @@ class Explosion extends React.PureComponent<Props, State> {
   }
 
   componentDidMount = () => {
-    const { autoStart = true } = this.props;
+    const { autoStart = true, autoStartDelay = 0 } = this.props;
 
     if (autoStart) {
-      this.start();
+      setTimeout(this.start, autoStartDelay);
     }
   };
 

@@ -27,6 +27,8 @@ describe('index', () => {
       />
     );
 
+    jest.runOnlyPendingTimers();
+
     expect(handleAnimationStart).toHaveBeenCalledTimes(1);
     expect(handleAnimationEnd).toHaveBeenCalledTimes(0);
 
@@ -77,6 +79,28 @@ describe('index', () => {
     jest.advanceTimersByTime(DEFAULT_EXPLOSION_SPEED + DEFAULT_FALL_SPEED);
 
     expect(handleAnimationStart).toHaveBeenCalledTimes(0);
+  });
+
+  it('should start after delay', () => {
+    const autoStartDelay = 100;
+    const handleAnimationStart = jest.fn();
+
+    renderer.create(
+      <ConfettiCannon
+        count={10}
+        origin={{x: -10, y: 0}}
+        autoStartDelay={autoStartDelay}
+        onAnimationStart={handleAnimationStart}
+      />
+    );
+
+    jest.advanceTimersByTime(autoStartDelay - 1);
+
+    expect(handleAnimationStart).toHaveBeenCalledTimes(0);
+
+    jest.advanceTimersByTime(1);
+
+    expect(handleAnimationStart).toHaveBeenCalledTimes(1);
   });
 
   it('should be able to start animation programmatically', () => {
