@@ -19,10 +19,10 @@ type Props = {|
   colors?: Array<string>,
   fadeOut?: boolean,
   autoStart?: boolean,
-  onAnimationStart?: Array<Item> => void,
-  onAnimationResume?: Array<Item> => void,
-  onAnimationStop?: Array<Item> => void,
-  onAnimationEnd?: Array<Item> => void
+  onAnimationStart?: () => void,
+  onAnimationResume?: () => void,
+  onAnimationStop?: () => void,
+  onAnimationEnd?: () => void
 |};
 
 type Item = {|
