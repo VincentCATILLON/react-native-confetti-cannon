@@ -1,0 +1,23 @@
+{
+  "files": {
+    "app.js": "/react-native-confetti-cannon/static/js/app.050befb6.chunk.js",
+    "app.js.map": "/react-native-confetti-cannon/static/js/app.050befb6.chunk.js.map",
+    "runtime~app.js": "/react-native-confetti-cannon/static/js/runtime~app.4f84fac6.js",
+    "runtime~app.js.map": "/react-native-confetti-cannon/static/js/runtime~app.4f84fac6.js.map",
+    "static/js/2.317b7ed4.chunk.js": "/react-native-confetti-cannon/static/js/2.317b7ed4.chunk.js",
+    "static/js/2.317b7ed4.chunk.js.map": "/react-native-confetti-cannon/static/js/2.317b7ed4.chunk.js.map",
+    "favicon-16.png": "/react-native-confetti-cannon/favicon-16.png",
+    "favicon-32.png": "/react-native-confetti-cannon/favicon-32.png",
+    "favicon.ico": "/react-native-confetti-cannon/favicon.ico",
+    "index.html": "/react-native-confetti-cannon/index.html",
+    "manifest.json": "/react-native-confetti-cannon/manifest.json",
+    "serve.json": "/react-native-confetti-cannon/serve.json",
+    "static/media/color-circle.png": "/react-native-confetti-cannon/static/media/color-circle.fb8bbc26.png",
+    "static/media/hsv_triangle_mask.png": "/react-native-confetti-cannon/static/media/hsv_triangle_mask.9d4466bc.png"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.4f84fac6.js",
+    "static/js/2.317b7ed4.chunk.js",
+    "static/js/app.050befb6.chunk.js"
+  ]
+}
