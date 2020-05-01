@@ -7,6 +7,10 @@
 ![https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue](https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue)
 ![https://img.shields.io/github/stars/vincentcatillon/react-native-confetti-cannon?style=social](https://img.shields.io/github/stars/vincentcatillon/react-native-confetti-cannon?style=social)
 
+## Live demo
+
+:rocket: Try yourself on Storybook <a href="https://vincentcatillon.github.io/react-native-confetti-cannon">web version</a>
+
 ## Installation
 
 ```console
@@ -54,7 +58,7 @@ const MyComponent = () => (
 | resume           | void                   | resume the animation programmatically      |          |
 | stop             | void                   | stop the animation programmatically        |          |
 
-## Try yourself
+## Development
 
 Deep into the `example` folder and run:
 
