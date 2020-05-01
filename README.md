@@ -3,9 +3,9 @@
 </p>
 
 [![CircleCI](https://circleci.com/gh/VincentCATILLON/react-native-confetti-cannon.svg?style=svg)](https://circleci.com/gh/VincentCATILLON/react-native-confetti-cannon)
-![https://img.shields.io/npm/v/react-native-confetti-cannon/latest?color=%23292C33&label=%20&logo=npm](https://img.shields.io/npm/v/react-native-confetti-cannon/latest?color=%23292C33&label=%20&logo=npm)
-![https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue](https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue)
-![https://img.shields.io/github/stars/vincentcatillon/react-native-confetti-cannon?style=social](https://img.shields.io/github/stars/vincentcatillon/react-native-confetti-cannon?style=social)
+[![NPM](https://img.shields.io/npm/v/react-native-confetti-cannon/latest?color=%23292C33&label=%20&logo=npm)](https://www.npmjs.com/package/react-native-confetti-cannon)
+[![PLATFORMS](https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue)](https://reactnative.dev/docs/animated)
+[![GITHUB](https://img.shields.io/github/stars/vincentcatillon/react-native-confetti-cannon?style=social)](https://github.com/vincentcatillon/react-native-confetti-cannon)
 
 ## Live demo
 
