@@ -86,7 +86,7 @@ class MyComponent extends React.PureComponent {
 
 ## Examples
 
-Deep into the `example` folder and, to see the [stories](https://github.com/VincentCATILLON/react-native-confetti-cannon/blob/master/example/storybook/stories/index.js), run:
+Deep into the `example` folder to see the [stories](https://github.com/VincentCATILLON/react-native-confetti-cannon/blob/master/example/storybook/stories/index.js) and run:
 
 ```console
 npm install && npm start
