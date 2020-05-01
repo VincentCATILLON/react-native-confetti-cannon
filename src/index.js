@@ -22,7 +22,8 @@ type Props = {|
   onAnimationStart?: () => void,
   onAnimationResume?: () => void,
   onAnimationStop?: () => void,
-  onAnimationEnd?: () => void
+  onAnimationEnd?: () => void,
+  testID?: string
 |};
 
 type Item = {|
@@ -35,6 +36,10 @@ type Item = {|
     rotateZ: number
   },
   color: string
+|};
+
+type State = {|
+  items: Array<Item>
 |};
 
 export const TOP_MIN = 0.7;
@@ -54,8 +59,11 @@ export const DEFAULT_COLORS: Array<string> =[
 export const DEFAULT_EXPLOSION_SPEED = 350;
 export const DEFAULT_FALL_SPEED = 3000;
 
-class Explosion extends React.PureComponent<Props> {
+class Explosion extends React.PureComponent<Props, State> {
   props: Props;
+  state: State = {
+    items: []
+  };
   start: () => void;
   resume: () => void;
   stop: () => void;
@@ -66,13 +74,13 @@ class Explosion extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
-    const { count, colors = DEFAULT_COLORS } = props;
+    const { colors = DEFAULT_COLORS } = props;
 
     this.start = this.start.bind(this);
     this.resume = this.resume.bind(this);
     this.stop = this.stop.bind(this);
 
-    this.setItems(count, colors);
+    this.state.items = this.getItems(colors);
   }
 
   componentDidMount = () => {
@@ -83,18 +91,21 @@ class Explosion extends React.PureComponent<Props> {
     }
   };
 
-  componentWillUpdate = ({ count, colors = DEFAULT_COLORS }: Props) => {
-    const {count: currentCount, colors: currentColors = DEFAULT_COLORS } = this.props;
+  componentDidUpdate = ({ count: prevCount, colors: prevColors = DEFAULT_COLORS }: Props) => {
+    const { count, colors = DEFAULT_COLORS } = this.props;
 
-    if (currentCount !== count || currentColors !== colors) {
-      this.setItems(count, colors);
+    if (count !== prevCount || colors !== prevColors) {
+      this.setState({
+        items: this.getItems(prevColors)
+      });
     }
-  }
+  };
 
-  setItems = (count: number, colors: Array<string>) => {
-    const { colors: currentColors = DEFAULT_COLORS } = this.props;
+  getItems = (prevColors: Array<string>): Array<Item> => {
+    const { count, colors = DEFAULT_COLORS } = this.props;
+    const { items } = this.state;
 
-    const difference = this.items.length < count ? count - this.items.length : 0;
+    const difference = items.length < count ? count - items.length : 0;
 
     const newItems = Array(difference).fill().map((): Item => ({
       leftDelta: randomValue(0, 1),
@@ -108,14 +119,14 @@ class Explosion extends React.PureComponent<Props> {
       color: randomColor(colors)
     }));
 
-    this.items = this.items
+    return items
       .slice(0, count)
       .concat(newItems)
       .map(item => ({
         ...item,
-        color: currentColors !== colors ? randomColor(colors) : item.color
+        color: prevColors !== colors ? randomColor(colors) : item.color
       }));
-  }
+  };
 
   start = (resume?: boolean = false) => {
     const {
@@ -167,11 +178,12 @@ class Explosion extends React.PureComponent<Props> {
 
   render() {
     const { origin, fadeOut } = this.props;
+    const { items } = this.state;
     const { height, width } = Dimensions.get('window');
 
     return (
       <React.Fragment>
-        {this.items.map((item: Item, index: number) => {
+        {items.map((item: Item, index: number) => {
           const left = this.animation.interpolate({
             inputRange: [0, 1, 2],
             outputRange: [origin.x, item.leftDelta * width, item.leftDelta * width]
@@ -210,6 +222,7 @@ class Explosion extends React.PureComponent<Props> {
               transform={transform}
               opacity={opacity}
               key={index}
+              testID={`confetti-${index + 1}`}
             />
           );
         })}

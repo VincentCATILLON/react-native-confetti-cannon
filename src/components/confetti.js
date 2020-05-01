@@ -18,6 +18,7 @@ type Props = {|
   transform: Interpolations,
   color: string,
   opacity: Animated.Interpolation,
+  testID?: string
 |};
 
 class Confetti extends React.PureComponent<Props> {

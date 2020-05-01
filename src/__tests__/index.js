@@ -130,4 +130,80 @@ describe('index', () => {
     expect(handleAnimationStop).toHaveBeenCalledTimes(1);
     expect(handleAnimationEnd).toHaveBeenCalledTimes(1);
   });
+
+  it('should re-render items without changing colors already set', () => {
+    const origin = {x: -10, y: 0};
+    const count1 = 10;
+    const count2 = 20;
+    const count3 = 5;
+
+    const component = renderer.create(
+      <ConfettiCannon count={count1} origin={origin} />
+    );
+
+    const confettis1 = component.root.findAll(el => el.props.testID && el.props.testID.match(/confetti/g));
+    const colors1 = confettis1.map(confetti => confetti.props.color);
+
+    expect(confettis1.length).toEqual(count1);
+
+    component.update(
+      <ConfettiCannon count={count2} origin={origin} />
+    );
+
+    const confettis2 = component.root.findAll(el => el.props.testID && el.props.testID.match(/confetti/g));
+    const colors2 = confettis2.map(confetti => confetti.props.color);
+
+    expect(confettis2.length).toEqual(count2);
+    expect(colors1).toEqual(colors2.slice(0, count1));
+
+    component.update(
+      <ConfettiCannon count={count3} origin={origin} />
+    );
+
+    const confettis3 = component.root.findAll(el => el.props.testID && el.props.testID.match(/confetti/g));
+    const colors3 = confettis3.map(confetti => confetti.props.color);
+
+    expect(confettis3.length).toEqual(count3);
+    expect(colors1.slice(0, count3)).toEqual(colors3.slice(0, count3));
+  });
+
+  it('should re-render items colors if colors prop changes', () => {
+    const origin = {x: -10, y: 0};
+    const count = 1;
+    const color1 = '#000';
+    const color2 = '#fff';
+
+    const component = renderer.create(
+      <ConfettiCannon count={count} origin={origin} colors={[color1]} />
+    );
+
+    const confetti = component.root.find(el => el.props.testID === 'confetti-1');
+
+    expect(confetti.props.color).toEqual(color1);
+
+    component.update(
+      <ConfettiCannon count={count} origin={origin} colors={[color2]} />
+    );
+
+    expect(confetti.props.color).toEqual(color2);
+  });
+
+  it('should not change items if colors or count dont change', () => {
+    const origin = {x: -10, y: 0};
+    const count = 1000;
+
+    const component = renderer.create(
+      <ConfettiCannon count={count} origin={origin} />
+    );
+
+    const confettis1 = component.root.findAll(el => el.props.testID && el.props.testID.match(/confetti/g));
+
+    component.update(
+      <ConfettiCannon count={count} origin={origin} fadeOut={true} />
+    );
+
+    const confettis2 = component.root.findAll(el => el.props.testID && el.props.testID.match(/confetti/g));
+
+    expect(confettis1).toEqual(confettis2);
+  });
 });
