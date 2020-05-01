@@ -62,6 +62,27 @@ jobs:
           name: Unit tests
           command: yarn test:unit
 
+  deploy:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          name: Dependencies
+          command: cd example && npm install
+      - run:
+          name: Git config
+          command: |
+            git config user.email "contact@vincent-catillon.fr"
+            git config user.name "Vincent Catillon"
+      - run:
+          name: Deploy
+          command: cd example && npm run deploy
+      - add_ssh_keys:
+          fingerprints:
+            - "d2:d6:b7:cd:fa:2e:78:03:f4:2f:06:9a:3f:a4:c0:45"
+
 workflows:
   version: 2
   tests:
@@ -76,3 +97,9 @@ workflows:
       - unit:
          requires:
            - dependencies
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master

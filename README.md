@@ -7,6 +7,10 @@
 ![https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue](https://img.shields.io/badge/Platforms-iOS%20%7C%C2%A0Android%20%7C%20Web-blue)
 ![https://img.shields.io/github/stars/vincentcatillon/react-native-confetti-cannon?style=social](https://img.shields.io/github/stars/vincentcatillon/react-native-confetti-cannon?style=social)
 
+## Live demo
+
+:rocket: Try yourself on Storybook <a href="https://vincentcatillon.github.io/react-native-confetti-cannon">web version</a>
+
 ## Installation
 
 ```console
@@ -39,22 +43,22 @@ const MyComponent = () => (
 
 ## Events
 
-| Name              | Returns               | Description                                | Required | Default        |
-|-------------------|-----------------------|--------------------------------------------|----------|----------------|
-| onAnimationStart  | Item[]                | callback triggered at animation start      |          |                |
-| onAnimationResume | Item[]                | callback triggered at animation resume     |          |                |
-| onAnimationStop   | Item[]                | callback triggered at animation stop       |          |                |
-| onAnimationEnd    | Item[]                | callback triggered at animation end        |          |                |
+| Name              | Returns               | Description                                | Required |
+|-------------------|-----------------------|--------------------------------------------|----------|
+| onAnimationStart  | void                  | callback triggered at animation start      |          |
+| onAnimationResume | void                  | callback triggered at animation resume     |          |
+| onAnimationStop   | void                  | callback triggered at animation stop       |          |
+| onAnimationEnd    | void                  | callback triggered at animation end        |          |
 
 ## Methods
 
-| Name             | Returns                | Description                                | Required | Default        |
-|------------------|------------------------|--------------------------------------------|----------|----------------|
-| start            | Item[]                 | start the animation programmatically       |          |                |
-| resume           | Item[]                 | resume the animation programmatically      |          |                |
-| stop             | Item[]                 | stop the animation programmatically        |          |                |
+| Name             | Returns                | Description                                | Required |
+|------------------|------------------------|--------------------------------------------|----------|
+| start            | void                   | start the animation programmatically       |          |
+| resume           | void                   | resume the animation programmatically      |          |
+| stop             | void                   | stop the animation programmatically        |          |
 
-## Try yourself
+## Development
 
 Deep into the `example` folder and run:
 
