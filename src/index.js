@@ -6,7 +6,7 @@ import type { CompositeAnimation } from 'react-native/Libraries/Animated/src/Ani
 import type { EndResult } from 'react-native/Libraries/Animated/src/animations/Animation';
 
 import Confetti from './components/confetti';
-import { randomValue } from './utils';
+import { randomValue, randomColor } from './utils';
 
 type Props = {|
   count: number,
@@ -33,7 +33,8 @@ type Item = {|
     rotateX: number,
     rotateY: number,
     rotateZ: number
-  }
+  },
+  color: string
 |};
 
 export const TOP_MIN = 0.7;
@@ -65,22 +66,13 @@ class Explosion extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
-    const { count } = this.props;
+    const { count, colors = DEFAULT_COLORS } = props;
 
     this.start = this.start.bind(this);
     this.resume = this.resume.bind(this);
     this.stop = this.stop.bind(this);
 
-    this.items = Array(count).fill().map((): Item => ({
-      leftDelta: randomValue(0, 1),
-      topDelta: randomValue(TOP_MIN, 1),
-      swingDelta: randomValue(0.2, 1),
-      speedDelta: {
-        rotateX: randomValue(0.3, 1),
-        rotateY: randomValue(0.3, 1),
-        rotateZ: randomValue(0.3, 1)
-      }
-    }));
+    this.setItems(count, colors);
   }
 
   componentDidMount = () => {
@@ -90,6 +82,40 @@ class Explosion extends React.PureComponent<Props> {
       this.start();
     }
   };
+
+  componentWillUpdate = ({ count, colors = DEFAULT_COLORS }: Props) => {
+    const {count: currentCount, colors: currentColors = DEFAULT_COLORS } = this.props;
+
+    if (currentCount !== count || currentColors !== colors) {
+      this.setItems(count, colors);
+    }
+  }
+
+  setItems = (count: number, colors: Array<string>) => {
+    const { colors: currentColors = DEFAULT_COLORS } = this.props;
+
+    const difference = this.items.length < count ? count - this.items.length : 0;
+
+    const newItems = Array(difference).fill().map((): Item => ({
+      leftDelta: randomValue(0, 1),
+      topDelta: randomValue(TOP_MIN, 1),
+      swingDelta: randomValue(0.2, 1),
+      speedDelta: {
+        rotateX: randomValue(0.3, 1),
+        rotateY: randomValue(0.3, 1),
+        rotateZ: randomValue(0.3, 1)
+      },
+      color: randomColor(colors)
+    }));
+
+    this.items = this.items
+      .slice(0, count)
+      .concat(newItems)
+      .map(item => ({
+        ...item,
+        color: currentColors !== colors ? randomColor(colors) : item.color
+      }));
+  }
 
   start = (resume?: boolean = false) => {
     const {
@@ -101,7 +127,7 @@ class Explosion extends React.PureComponent<Props> {
     } = this.props;
 
     if (resume) {
-      onAnimationResume && onAnimationResume(this.items);
+      onAnimationResume && onAnimationResume();
     } else {
       this.sequence = Animated.sequence([
         Animated.timing(this.animation, {toValue: 0, duration: 0, useNativeDriver: true}),
@@ -119,12 +145,12 @@ class Explosion extends React.PureComponent<Props> {
         }),
       ]);
 
-      onAnimationStart && onAnimationStart(this.items);
+      onAnimationStart && onAnimationStart();
     }
 
     this.sequence && this.sequence.start(({finished}: EndResult) => {
       if (finished) {
-        onAnimationEnd && onAnimationEnd(this.items);
+        onAnimationEnd && onAnimationEnd();
       }
     });
   };
@@ -134,18 +160,18 @@ class Explosion extends React.PureComponent<Props> {
   stop = () => {
     const { onAnimationStop } = this.props;
 
-    onAnimationStop && onAnimationStop(this.items);
+    onAnimationStop && onAnimationStop();
 
     this.sequence && this.sequence.stop();
   };
 
   render() {
-    const { origin, colors = DEFAULT_COLORS, fadeOut } = this.props;
+    const { origin, fadeOut } = this.props;
     const { height, width } = Dimensions.get('window');
 
     return (
       <React.Fragment>
-        {this && this.items && this.items.map((item: Item, index: number) => {
+        {this.items.map((item: Item, index: number) => {
           const left = this.animation.interpolate({
             inputRange: [0, 1, 2],
             outputRange: [origin.x, item.leftDelta * width, item.leftDelta * width]
@@ -179,7 +205,7 @@ class Explosion extends React.PureComponent<Props> {
 
           return (
             <Confetti
-              color={colors[Math.round(randomValue(0, colors.length - 1))]}
+              color={item.color}
               containerTransform={containerTransform}
               transform={transform}
               opacity={opacity}

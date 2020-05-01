@@ -39,20 +39,20 @@ const MyComponent = () => (
 
 ## Events
 
-| Name              | Returns               | Description                                | Required | Default        |
-|-------------------|-----------------------|--------------------------------------------|----------|----------------|
-| onAnimationStart  | Item[]                | callback triggered at animation start      |          |                |
-| onAnimationResume | Item[]                | callback triggered at animation resume     |          |                |
-| onAnimationStop   | Item[]                | callback triggered at animation stop       |          |                |
-| onAnimationEnd    | Item[]                | callback triggered at animation end        |          |                |
+| Name              | Returns               | Description                                | Required |
+|-------------------|-----------------------|--------------------------------------------|----------|
+| onAnimationStart  | void                  | callback triggered at animation start      |          |
+| onAnimationResume | void                  | callback triggered at animation resume     |          |
+| onAnimationStop   | void                  | callback triggered at animation stop       |          |
+| onAnimationEnd    | void                  | callback triggered at animation end        |          |
 
 ## Methods
 
-| Name             | Returns                | Description                                | Required | Default        |
-|------------------|------------------------|--------------------------------------------|----------|----------------|
-| start            | Item[]                 | start the animation programmatically       |          |                |
-| resume           | Item[]                 | resume the animation programmatically      |          |                |
-| stop             | Item[]                 | stop the animation programmatically        |          |                |
+| Name             | Returns                | Description                                | Required |
+|------------------|------------------------|--------------------------------------------|----------|
+| start            | void                   | start the animation programmatically       |          |
+| resume           | void                   | resume the animation programmatically      |          |
+| stop             | void                   | stop the animation programmatically        |          |
 
 ## Try yourself
 
