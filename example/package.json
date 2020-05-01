@@ -19,6 +19,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-knobs": "^5.3.18",
+    "@storybook/addon-ondevice-actions": "^5.3.18",
+    "@storybook/addon-ondevice-knobs": "^5.3.18",
+    "@storybook/react-native": "^5.3.18",
     "babel-preset-expo": "~8.1.0"
   },
   "private": true
