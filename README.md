@@ -59,9 +59,33 @@ const MyComponent = () => (
 | resume           | void                   | resume the animation programmatically      |          |
 | stop             | void                   | stop the animation programmatically        |          |
 
-## Development
+_For example:_
 
-Deep into the `example` folder and run:
+```js
+import ConfettiCannon from 'react-native-confetti-cannon';
+
+class MyComponent extends React.PureComponent {
+  ref;
+
+  handleSomeKindOfEvent = () => {
+    this.ref && this.ref.start();
+  };
+
+  render() {
+    return (
+      <ConfettiCannon
+        count={200}
+        origin={{x: -10, y: 0}}
+        ref={ref => (this.ref = ref)}
+      />
+    );
+  }
+}
+```
+
+## Examples
+
+Deep into the `example` folder and, to see the [stories](https://github.com/VincentCATILLON/react-native-confetti-cannon/blob/master/example/storybook/stories/index.js), run:
 
 ```console
 npm install && npm start
