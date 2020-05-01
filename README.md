@@ -65,10 +65,10 @@ _For example:_
 import ConfettiCannon from 'react-native-confetti-cannon';
 
 class MyComponent extends React.PureComponent {
-  ref;
+  explosion;
 
   handleSomeKindOfEvent = () => {
-    this.ref && this.ref.start();
+    this.explosion && this.explosion.start();
   };
 
   render() {
@@ -76,7 +76,8 @@ class MyComponent extends React.PureComponent {
       <ConfettiCannon
         count={200}
         origin={{x: -10, y: 0}}
-        ref={ref => (this.ref = ref)}
+        autoStart={false}
+        ref={ref => (this.explosion = ref)}
       />
     );
   }
