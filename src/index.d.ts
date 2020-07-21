@@ -40,6 +40,10 @@ export declare const DEFAULT_COLORS: string[];
 export declare const DEFAULT_EXPLOSION_SPEED: number;
 export declare const DEFAULT_FALL_SPEED: number;
 
-declare class Explosion extends React.PureComponent<ExplosionProps, ExplosionState> {}
+declare class Explosion extends React.PureComponent<ExplosionProps, ExplosionState> {
+  start: (resume?: boolean) => void;
+  resume: () => void;
+  stop: () => void;
+}
 
 export default Explosion;
