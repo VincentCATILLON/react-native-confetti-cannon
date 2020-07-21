@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface ExplosionProps {
+export interface ExplosionProps {
   count: number;
   origin: {
     x: number;
@@ -19,7 +19,7 @@ interface ExplosionProps {
   testID?: string;
 }
 
-interface ConfettiItem {
+export interface ConfettiItem {
   leftDelta: number;
   topDelta: number;
   swingDelta: number;
@@ -31,7 +31,7 @@ interface ConfettiItem {
   color: string;
 }
 
-interface ExplosionState {
+export interface ExplosionState {
   items: ConfettiItem[];
 }
 
