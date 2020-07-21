@@ -20,12 +20,12 @@ self.__precacheManifest = [
     "url": "/react-native-confetti-cannon/static/media/hsv_triangle_mask.9d4466bc.png"
   },
   {
-    "revision": "d0c694b562b2208635f250762cd7fc79",
-    "url": "/react-native-confetti-cannon/serve.json"
-  },
-  {
     "revision": "48c7ed4e7da9792af288a60d7242d615",
     "url": "/react-native-confetti-cannon/expo-service-worker.js"
+  },
+  {
+    "revision": "d0c694b562b2208635f250762cd7fc79",
+    "url": "/react-native-confetti-cannon/serve.json"
   },
   {
     "revision": "afd5733ac789ab1795f1ed7a26e1ecd3",
