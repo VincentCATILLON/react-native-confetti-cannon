@@ -12,15 +12,15 @@ jest.mock('react-native', () => {
   Platform.select.mockImplementation(specifics => {
     const { OS } = MockPlatform
     if (OS in specifics) {
-      return specifics[OS]
+      return specifics[OS];
     } else if ('default' in specifics) {
-      return specifics.default
+      return specifics.default;
     }
-    return undefined
+    return undefined;
   })
 
   return Object.setPrototypeOf({
-    Platform: MockPlatform
+    Platform: MockPlatform,
   }, ReactNative);
 });
 
