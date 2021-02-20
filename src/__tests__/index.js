@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { Platform } from 'react-native';
+import { Animated, Platform } from 'react-native';
 import renderer from 'react-test-renderer';
 
 import ConfettiCannon, {DEFAULT_EXPLOSION_SPEED, DEFAULT_FALL_SPEED} from '..';
@@ -245,5 +245,35 @@ describe('index', () => {
     const confetti = component.root.find(el => el.props.testID === 'confetti-1');
 
     expect(confetti.props.transform).toEqual(expect.arrayContaining([{ perspective: 100 }]));
+  });
+
+  it('should default "renderToHardwareTextureAndroid" prop to true', () => {
+    const origin = {x: -10, y: 0};
+    const count = 1;
+
+    const component = renderer.create(
+      <ConfettiCannon count={count} origin={origin} />
+    );
+
+    const confetti = component.root.find(el => el.props.testID === 'confetti-1');
+    const confettiAnimatedView = confetti.findByType(Animated.View);
+
+    expect(confetti.props.renderToHardwareTextureAndroid).toEqual(true);
+    expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(true);
+  });
+
+  it('should accept "renderToHardwareTextureAndroid = false" prop', () => {
+    const origin = {x: -10, y: 0};
+    const count = 1;
+
+    const component = renderer.create(
+      <ConfettiCannon count={count} origin={origin} renderToHardwareTextureAndroid={false} />
+    );
+
+    const confetti = component.root.find(el => el.props.testID === 'confetti-1');
+    const confettiAnimatedView = confetti.findByType(Animated.View);
+
+    expect(confetti.props.renderToHardwareTextureAndroid).toEqual(false);
+    expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(false);
   });
 });

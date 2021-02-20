@@ -19,6 +19,7 @@ type Props = {|
   transform: Interpolations,
   color: string,
   opacity: Animated.Interpolation,
+  renderToHardwareTextureAndroid?: boolean,
   testID?: string
 |};
 
@@ -29,13 +30,16 @@ class Confetti extends React.PureComponent<Props> {
   isRounded: boolean = Math.round(randomValue(0, 1)) === 1;
 
   render() {
-    const { containerTransform, transform, opacity, color } = this.props;
+    const { containerTransform, transform, opacity, color, renderToHardwareTextureAndroid } = this.props;
     const { width, height, isRounded } = this;
     const containerStyle = { transform: containerTransform };
     const style = { width, height, backgroundColor: color, transform, opacity};
 
     return (
-      <Animated.View style={[styles.confetti, containerStyle]}>
+      <Animated.View
+        pointerEvents="none"
+        renderToHardwareTextureAndroid={renderToHardwareTextureAndroid}
+        style={[styles.confetti, containerStyle]}>
         <Animated.View style={[isRounded && styles.rounded, style]} />
       </Animated.View>
     );
