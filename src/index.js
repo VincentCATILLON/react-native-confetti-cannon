@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { Animated, Dimensions, Easing } from 'react-native';
+import { Animated, Dimensions, Easing, Platform } from 'react-native';
 import type { CompositeAnimation } from 'react-native/Libraries/Animated/src/AnimatedImplementation';
 import type { EndResult } from 'react-native/Libraries/Animated/src/animations/Animation';
 
@@ -215,6 +215,9 @@ class Explosion extends React.PureComponent<Props, State> {
           });
           const containerTransform = [{translateX: left}, {translateY: top}];
           const transform = [{rotateX}, {rotateY}, {rotate: rotateZ}, {translateX}];
+          if (Platform.OS === 'android') {
+            transform.push({ perspective: 100 });
+          }
 
           return (
             <Confetti

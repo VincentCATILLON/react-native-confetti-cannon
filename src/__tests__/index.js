@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Platform } from 'react-native';
 import renderer from 'react-test-renderer';
 
 import ConfettiCannon, {DEFAULT_EXPLOSION_SPEED, DEFAULT_FALL_SPEED} from '..';
@@ -8,6 +9,7 @@ import ConfettiCannon, {DEFAULT_EXPLOSION_SPEED, DEFAULT_FALL_SPEED} from '..';
 describe('index', () => {
   beforeEach(() => {
     jest.useFakeTimers();
+    Platform.OS = 'ios';
   });
 
   it('should trigger animations callbacks', () => {
@@ -229,5 +231,19 @@ describe('index', () => {
     const confettis2 = component.root.findAll(el => el.props.testID && el.props.testID.match(/confetti/g));
 
     expect(confettis1).toEqual(confettis2);
+  });
+
+  it('should include the perspective transform on the Android platform', () => {
+    Platform.OS = 'android';
+    const origin = {x: -10, y: 0};
+    const count = 1;
+
+    const component = renderer.create(
+      <ConfettiCannon count={count} origin={origin} />
+    );
+
+    const confetti = component.root.find(el => el.props.testID === 'confetti-1');
+
+    expect(confetti.props.transform).toEqual(expect.arrayContaining([{ perspective: 100 }]));
   });
 });

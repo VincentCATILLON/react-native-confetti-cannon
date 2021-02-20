@@ -10,7 +10,8 @@ type Interpolations = Array<{
   translateY?: Animated.Interpolation,
   rotate?: Animated.Interpolation,
   rotateX?: Animated.Interpolation,
-  rotateY?: Animated.Interpolation
+  rotateY?: Animated.Interpolation,
+  perspective?: number
 }>;
 
 type Props = {|
