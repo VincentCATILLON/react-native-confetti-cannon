@@ -7,9 +7,12 @@ import renderer from 'react-test-renderer';
 import ConfettiCannon, {DEFAULT_EXPLOSION_SPEED, DEFAULT_FALL_SPEED} from '..';
 
 describe('index', () => {
+  let ref: JestMockFn<[ConfettiCannon | null], void>
+
   beforeEach(() => {
     jest.useFakeTimers();
     Platform.OS = 'ios';
+    ref = jest.fn()
   });
 
   it('should trigger animations callbacks', () => {
@@ -66,7 +69,7 @@ describe('index', () => {
     expect(handleAnimationEnd).toHaveBeenCalledTimes(1);
   });
 
-  it('should not start is autoStart is disabled', () => {
+  it('should not start if autoStart is disabled', () => {
     const handleAnimationStart = jest.fn();
 
     renderer.create(
@@ -110,7 +113,6 @@ describe('index', () => {
     const handleAnimationResume = jest.fn();
     const handleAnimationStop = jest.fn();
     const handleAnimationEnd = jest.fn();
-    const ref = jest.fn();
 
     renderer.create(
       <ConfettiCannon
@@ -121,28 +123,27 @@ describe('index', () => {
         onAnimationResume={handleAnimationResume}
         onAnimationStop={handleAnimationStop}
         onAnimationEnd={handleAnimationEnd}
-        // $FlowFixMe this is a mock
         ref={ref}
       />
     );
 
     const [confettiCannon] = ref.mock.calls[0];
 
-    confettiCannon.start();
+    confettiCannon && confettiCannon.start();
 
     expect(handleAnimationStart).toHaveBeenCalledTimes(1);
     expect(handleAnimationResume).toHaveBeenCalledTimes(0);
     expect(handleAnimationStop).toHaveBeenCalledTimes(0);
     expect(handleAnimationEnd).toHaveBeenCalledTimes(0);
 
-    confettiCannon.stop();
+    confettiCannon && confettiCannon.stop();
 
     expect(handleAnimationStart).toHaveBeenCalledTimes(1);
     expect(handleAnimationResume).toHaveBeenCalledTimes(0);
     expect(handleAnimationStop).toHaveBeenCalledTimes(1);
     expect(handleAnimationEnd).toHaveBeenCalledTimes(0);
 
-    confettiCannon.resume();
+    confettiCannon && confettiCannon.resume();
 
     expect(handleAnimationStart).toHaveBeenCalledTimes(1);
     expect(handleAnimationResume).toHaveBeenCalledTimes(1);
@@ -241,25 +242,50 @@ describe('index', () => {
     const component = renderer.create(
       <ConfettiCannon count={count} origin={origin} />
     );
-
     const confetti = component.root.find(el => el.props.testID === 'confetti-1');
 
     expect(confetti.props.transform).toEqual(expect.arrayContaining([{ perspective: 100 }]));
   });
 
-  it('should default "renderToHardwareTextureAndroid" prop to true', () => {
+  it('should default "renderToHardwareTextureAndroid" prop to true once animating', () => {
     const origin = {x: -10, y: 0};
     const count = 1;
 
     const component = renderer.create(
-      <ConfettiCannon count={count} origin={origin} />
+      <ConfettiCannon count={count} origin={origin} ref={ref} />
     );
-
     const confetti = component.root.find(el => el.props.testID === 'confetti-1');
     const confettiAnimatedView = confetti.findByType(Animated.View);
 
+    const [confettiCannon] = ref.mock.calls[0];
+
+    confettiCannon && confettiCannon.start();
+
     expect(confetti.props.renderToHardwareTextureAndroid).toEqual(true);
     expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(true);
+  });
+
+  it('should set "renderToHardwareTextureAndroid" prop to false once done animating', () => {
+    const origin = {x: -10, y: 0};
+    const count = 1;
+
+    const component = renderer.create(
+      <ConfettiCannon count={count} origin={origin} ref={ref} />
+    );
+    const confetti = component.root.find(el => el.props.testID === 'confetti-1');
+    const confettiAnimatedView = confetti.findByType(Animated.View);
+
+    const [confettiCannon] = ref.mock.calls[0];
+
+    confettiCannon && confettiCannon.start();
+
+    expect(confetti.props.renderToHardwareTextureAndroid).toEqual(true);
+    expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(true);
+
+    jest.advanceTimersByTime(DEFAULT_EXPLOSION_SPEED + DEFAULT_FALL_SPEED);
+
+    expect(confetti.props.renderToHardwareTextureAndroid).toEqual(false);
+    expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(false);
   });
 
   it('should accept "renderToHardwareTextureAndroid = false" prop', () => {
@@ -267,11 +293,18 @@ describe('index', () => {
     const count = 1;
 
     const component = renderer.create(
-      <ConfettiCannon count={count} origin={origin} renderToHardwareTextureAndroid={false} />
+      <ConfettiCannon
+        count={count}
+        origin={origin}
+        renderToHardwareTextureAndroid={false}
+        ref={ref} />
     );
-
     const confetti = component.root.find(el => el.props.testID === 'confetti-1');
     const confettiAnimatedView = confetti.findByType(Animated.View);
+
+    const [confettiCannon] = ref.mock.calls[0];
+
+    confettiCannon && confettiCannon.start();
 
     expect(confetti.props.renderToHardwareTextureAndroid).toEqual(false);
     expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(false);

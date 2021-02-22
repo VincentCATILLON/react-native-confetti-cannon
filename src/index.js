@@ -41,7 +41,8 @@ type Item = {|
 |};
 
 type State = {|
-  items: Array<Item>
+  items: Array<Item>,
+  isAnimating: boolean
 |};
 
 export const TOP_MIN = 0.7;
@@ -64,7 +65,8 @@ export const DEFAULT_FALL_SPEED = 3000;
 class Explosion extends React.PureComponent<Props, State> {
   props: Props;
   state: State = {
-    items: []
+    items: [],
+    isAnimating: false
   };
   start: () => void;
   resume: () => void;
@@ -159,12 +161,16 @@ class Explosion extends React.PureComponent<Props, State> {
       ]);
 
       onAnimationStart && onAnimationStart();
+
+      this.setState({ isAnimating: true });
     }
 
     this.sequence && this.sequence.start(({finished}: EndResult) => {
-      if (finished) {
-        onAnimationEnd && onAnimationEnd();
-      }
+      if (!finished) return;
+
+      this.setState({ isAnimating: false });
+      
+      onAnimationEnd && onAnimationEnd();
     });
   };
 
@@ -180,7 +186,7 @@ class Explosion extends React.PureComponent<Props, State> {
 
   render() {
     const { origin, fadeOut, renderToHardwareTextureAndroid = true } = this.props;
-    const { items } = this.state;
+    const { items, isAnimating } = this.state;
     const { height, width } = Dimensions.get('window');
 
     return (
@@ -226,7 +232,7 @@ class Explosion extends React.PureComponent<Props, State> {
               containerTransform={containerTransform}
               transform={transform}
               opacity={opacity}
-              renderToHardwareTextureAndroid={renderToHardwareTextureAndroid}
+              renderToHardwareTextureAndroid={renderToHardwareTextureAndroid && isAnimating}
               key={index}
               testID={`confetti-${index + 1}`}
             />
