@@ -7,12 +7,9 @@ import renderer from 'react-test-renderer';
 import ConfettiCannon, {DEFAULT_EXPLOSION_SPEED, DEFAULT_FALL_SPEED} from '..';
 
 describe('index', () => {
-  let ref: JestMockFn<[ConfettiCannon | null], void>
-
   beforeEach(() => {
     jest.useFakeTimers();
     Platform.OS = 'ios';
-    ref = jest.fn()
   });
 
   it('should trigger animations callbacks', () => {
@@ -113,6 +110,7 @@ describe('index', () => {
     const handleAnimationResume = jest.fn();
     const handleAnimationStop = jest.fn();
     const handleAnimationEnd = jest.fn();
+    const ref = jest.fn<[ConfettiCannon | null], void>();
 
     renderer.create(
       <ConfettiCannon
@@ -236,8 +234,9 @@ describe('index', () => {
 
   it('should include the perspective transform on the Android platform', () => {
     Platform.OS = 'android';
+
     const origin = {x: -10, y: 0};
-    const count = 1;
+    const count = 1000;
 
     const component = renderer.create(
       <ConfettiCannon count={count} origin={origin} />
@@ -247,44 +246,18 @@ describe('index', () => {
     expect(confetti.props.transform).toEqual(expect.arrayContaining([{ perspective: 100 }]));
   });
 
-  it('should set "renderToHardwareTextureAndroid" prop to true once animating', () => {
+  it('should set "renderToHardwareTextureAndroid" prop to true for confetti animated view', () => {
     const origin = {x: -10, y: 0};
-    const count = 1;
+    const count = 1000;
 
     const component = renderer.create(
-      <ConfettiCannon count={count} origin={origin} ref={ref} />
+      <ConfettiCannon count={count} origin={origin} />
     );
-    const confetti = component.root.find(el => el.props.testID === 'confetti-1');
-    const confettiAnimatedView = confetti.findByType(Animated.View);
+    
+    const confettiAnimatedView = component.root
+        .find(el => el.props.testID === 'confetti-1')
+        .findByType(Animated.View);
 
-    const [confettiCannon] = ref.mock.calls[0];
-
-    confettiCannon && confettiCannon.start();
-
-    expect(confetti.props.renderToHardwareTextureAndroid).toEqual(true);
     expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(true);
-  });
-
-  it('should set "renderToHardwareTextureAndroid" prop to false once done animating', () => {
-    const origin = {x: -10, y: 0};
-    const count = 1;
-
-    const component = renderer.create(
-      <ConfettiCannon count={count} origin={origin} ref={ref} />
-    );
-    const confetti = component.root.find(el => el.props.testID === 'confetti-1');
-    const confettiAnimatedView = confetti.findByType(Animated.View);
-
-    const [confettiCannon] = ref.mock.calls[0];
-
-    confettiCannon && confettiCannon.start();
-
-    expect(confetti.props.renderToHardwareTextureAndroid).toEqual(true);
-    expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(true);
-
-    jest.advanceTimersByTime(DEFAULT_EXPLOSION_SPEED + DEFAULT_FALL_SPEED);
-
-    expect(confetti.props.renderToHardwareTextureAndroid).toEqual(false);
-    expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(false);
   });
 });
