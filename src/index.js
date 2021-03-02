@@ -222,6 +222,7 @@ class Explosion extends React.PureComponent<Props, State> {
           });
           const containerTransform = [{translateX: left}, {translateY: top}];
           const transform = [{rotateX}, {rotateY}, {rotate: rotateZ}, {translateX}];
+
           if (Platform.OS === 'android') {
             transform.push({ perspective: 100 });
           }
