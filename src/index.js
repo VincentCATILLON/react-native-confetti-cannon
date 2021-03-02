@@ -20,7 +20,6 @@ type Props = {|
   fadeOut?: boolean,
   autoStart?: boolean,
   autoStartDelay?: number,
-  renderToHardwareTextureAndroid?: boolean,
   onAnimationStart?: () => void,
   onAnimationResume?: () => void,
   onAnimationStop?: () => void,
@@ -185,7 +184,7 @@ class Explosion extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { origin, fadeOut, renderToHardwareTextureAndroid = true } = this.props;
+    const { origin, fadeOut } = this.props;
     const { items, isAnimating } = this.state;
     const { height, width } = Dimensions.get('window');
 
@@ -233,7 +232,7 @@ class Explosion extends React.PureComponent<Props, State> {
               containerTransform={containerTransform}
               transform={transform}
               opacity={opacity}
-              renderToHardwareTextureAndroid={renderToHardwareTextureAndroid && isAnimating}
+              renderToHardwareTextureAndroid={isAnimating}
               key={index}
               testID={`confetti-${index + 1}`}
             />

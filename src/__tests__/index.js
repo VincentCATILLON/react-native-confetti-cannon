@@ -247,7 +247,7 @@ describe('index', () => {
     expect(confetti.props.transform).toEqual(expect.arrayContaining([{ perspective: 100 }]));
   });
 
-  it('should default "renderToHardwareTextureAndroid" prop to true once animating', () => {
+  it('should set "renderToHardwareTextureAndroid" prop to true once animating', () => {
     const origin = {x: -10, y: 0};
     const count = 1;
 
@@ -283,28 +283,6 @@ describe('index', () => {
     expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(true);
 
     jest.advanceTimersByTime(DEFAULT_EXPLOSION_SPEED + DEFAULT_FALL_SPEED);
-
-    expect(confetti.props.renderToHardwareTextureAndroid).toEqual(false);
-    expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(false);
-  });
-
-  it('should accept "renderToHardwareTextureAndroid = false" prop', () => {
-    const origin = {x: -10, y: 0};
-    const count = 1;
-
-    const component = renderer.create(
-      <ConfettiCannon
-        count={count}
-        origin={origin}
-        renderToHardwareTextureAndroid={false}
-        ref={ref} />
-    );
-    const confetti = component.root.find(el => el.props.testID === 'confetti-1');
-    const confettiAnimatedView = confetti.findByType(Animated.View);
-
-    const [confettiCannon] = ref.mock.calls[0];
-
-    confettiCannon && confettiCannon.start();
 
     expect(confetti.props.renderToHardwareTextureAndroid).toEqual(false);
     expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(false);

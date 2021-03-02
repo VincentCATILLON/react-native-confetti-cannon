@@ -12,7 +12,6 @@ export interface ExplosionProps {
   fadeOut?: boolean;
   autoStart?: boolean;
   autoStartDelay?: number;
-  renderToHardwareTextureAndroid?: boolean;
   onAnimationStart?: () => void;
   onAnimationResume?: () => void;
   onAnimationStop?: () => void;
