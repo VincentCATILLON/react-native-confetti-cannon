@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/react-native-confetti-cannon/precache-manifest.acb2e491964e80f16491924b4a2600b7.js"
+  "/react-native-confetti-cannon/precache-manifest.45d47f90240d2e36bc1179a72a661491.js"
 );
 
 workbox.skipWaiting();

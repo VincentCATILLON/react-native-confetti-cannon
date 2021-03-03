@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/react-native-confetti-cannon/static/js/app.0fe2ef45.chunk.js",
-    "app.js.map": "/react-native-confetti-cannon/static/js/app.0fe2ef45.chunk.js.map",
+    "app.js": "/react-native-confetti-cannon/static/js/app.e96a1b45.chunk.js",
+    "app.js.map": "/react-native-confetti-cannon/static/js/app.e96a1b45.chunk.js.map",
     "runtime~app.js": "/react-native-confetti-cannon/static/js/runtime~app.4f84fac6.js",
     "runtime~app.js.map": "/react-native-confetti-cannon/static/js/runtime~app.4f84fac6.js.map",
-    "static/js/2.2ef5f773.chunk.js": "/react-native-confetti-cannon/static/js/2.2ef5f773.chunk.js",
-    "static/js/2.2ef5f773.chunk.js.map": "/react-native-confetti-cannon/static/js/2.2ef5f773.chunk.js.map",
+    "static/js/2.9fdbd132.chunk.js": "/react-native-confetti-cannon/static/js/2.9fdbd132.chunk.js",
+    "static/js/2.9fdbd132.chunk.js.map": "/react-native-confetti-cannon/static/js/2.9fdbd132.chunk.js.map",
     "favicon-16.png": "/react-native-confetti-cannon/favicon-16.png",
     "favicon-32.png": "/react-native-confetti-cannon/favicon-32.png",
     "favicon.ico": "/react-native-confetti-cannon/favicon.ico",
@@ -17,7 +17,7 @@
   },
   "entrypoints": [
     "static/js/runtime~app.4f84fac6.js",
-    "static/js/2.2ef5f773.chunk.js",
-    "static/js/app.0fe2ef45.chunk.js"
+    "static/js/2.9fdbd132.chunk.js",
+    "static/js/app.e96a1b45.chunk.js"
   ]
 }
