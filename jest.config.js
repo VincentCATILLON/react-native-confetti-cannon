@@ -6,6 +6,10 @@ module.exports = {
     'node_modules/(?!(.*-)?react(.*-)?(native)(-.*)?)',
     'node_modules/core-js'
   ],
+  setupFiles: [
+    '<rootDir>/node_modules/react-native/jest/setup.js',
+    '<rootDir>/jestSetup.js'
+  ],
   collectCoverage: true,
   coverageReporters: ['lcov', 'text', 'html'],
   collectCoverageFrom: [

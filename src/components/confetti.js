@@ -10,7 +10,8 @@ type Interpolations = Array<{
   translateY?: Animated.Interpolation,
   rotate?: Animated.Interpolation,
   rotateX?: Animated.Interpolation,
-  rotateY?: Animated.Interpolation
+  rotateY?: Animated.Interpolation,
+  perspective?: number
 }>;
 
 type Props = {|
@@ -34,7 +35,10 @@ class Confetti extends React.PureComponent<Props> {
     const style = { width, height, backgroundColor: color, transform, opacity};
 
     return (
-      <Animated.View style={[styles.confetti, containerStyle]}>
+      <Animated.View
+        pointerEvents="none"
+        renderToHardwareTextureAndroid={true}
+        style={[styles.confetti, containerStyle]}>
         <Animated.View style={[isRounded && styles.rounded, style]} />
       </Animated.View>
     );

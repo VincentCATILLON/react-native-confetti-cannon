@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { Animated, Platform } from 'react-native';
 import renderer from 'react-test-renderer';
 
 import ConfettiCannon, {DEFAULT_EXPLOSION_SPEED, DEFAULT_FALL_SPEED} from '..';
@@ -8,6 +9,7 @@ import ConfettiCannon, {DEFAULT_EXPLOSION_SPEED, DEFAULT_FALL_SPEED} from '..';
 describe('index', () => {
   beforeEach(() => {
     jest.useFakeTimers();
+    Platform.OS = 'ios';
   });
 
   it('should trigger animations callbacks', () => {
@@ -64,7 +66,7 @@ describe('index', () => {
     expect(handleAnimationEnd).toHaveBeenCalledTimes(1);
   });
 
-  it('should not start is autoStart is disabled', () => {
+  it('should not start if autoStart is disabled', () => {
     const handleAnimationStart = jest.fn();
 
     renderer.create(
@@ -108,7 +110,7 @@ describe('index', () => {
     const handleAnimationResume = jest.fn();
     const handleAnimationStop = jest.fn();
     const handleAnimationEnd = jest.fn();
-    const ref = jest.fn();
+    const ref = jest.fn<[ConfettiCannon | null], void>();
 
     renderer.create(
       <ConfettiCannon
@@ -119,28 +121,27 @@ describe('index', () => {
         onAnimationResume={handleAnimationResume}
         onAnimationStop={handleAnimationStop}
         onAnimationEnd={handleAnimationEnd}
-        // $FlowFixMe this is a mock
         ref={ref}
       />
     );
 
     const [confettiCannon] = ref.mock.calls[0];
 
-    confettiCannon.start();
+    confettiCannon && confettiCannon.start();
 
     expect(handleAnimationStart).toHaveBeenCalledTimes(1);
     expect(handleAnimationResume).toHaveBeenCalledTimes(0);
     expect(handleAnimationStop).toHaveBeenCalledTimes(0);
     expect(handleAnimationEnd).toHaveBeenCalledTimes(0);
 
-    confettiCannon.stop();
+    confettiCannon && confettiCannon.stop();
 
     expect(handleAnimationStart).toHaveBeenCalledTimes(1);
     expect(handleAnimationResume).toHaveBeenCalledTimes(0);
     expect(handleAnimationStop).toHaveBeenCalledTimes(1);
     expect(handleAnimationEnd).toHaveBeenCalledTimes(0);
 
-    confettiCannon.resume();
+    confettiCannon && confettiCannon.resume();
 
     expect(handleAnimationStart).toHaveBeenCalledTimes(1);
     expect(handleAnimationResume).toHaveBeenCalledTimes(1);
@@ -229,5 +230,34 @@ describe('index', () => {
     const confettis2 = component.root.findAll(el => el.props.testID && el.props.testID.match(/confetti/g));
 
     expect(confettis1).toEqual(confettis2);
+  });
+
+  it('should include the perspective transform on the Android platform', () => {
+    Platform.OS = 'android';
+
+    const origin = {x: -10, y: 0};
+    const count = 1000;
+
+    const component = renderer.create(
+      <ConfettiCannon count={count} origin={origin} />
+    );
+    const confetti = component.root.find(el => el.props.testID === 'confetti-1');
+
+    expect(confetti.props.transform).toEqual(expect.arrayContaining([{ perspective: 100 }]));
+  });
+
+  it('should set "renderToHardwareTextureAndroid" prop to true for confetti animated view', () => {
+    const origin = {x: -10, y: 0};
+    const count = 1000;
+
+    const component = renderer.create(
+      <ConfettiCannon count={count} origin={origin} />
+    );
+    
+    const confettiAnimatedView = component.root
+        .find(el => el.props.testID === 'confetti-1')
+        .findByType(Animated.View);
+
+    expect(confettiAnimatedView.props.renderToHardwareTextureAndroid).toEqual(true);
   });
 });
