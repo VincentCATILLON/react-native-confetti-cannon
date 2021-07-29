@@ -14,6 +14,10 @@ type Props = {|
     x: number,
     y: number
   },
+  window?: {
+    width: number,
+    height: number,
+  },
   explosionSpeed?: number,
   fallSpeed?: number,
   colors?: Array<string>,
@@ -178,9 +182,9 @@ class Explosion extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { origin, fadeOut } = this.props;
+    const { origin, fadeOut, window } = this.props;
     const { items } = this.state;
-    const { height, width } = Dimensions.get('window');
+    const { height, width } = window ?? Dimensions.get('window');
 
     return (
       <React.Fragment>
