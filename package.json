@@ -7,6 +7,10 @@
     "url": "https://github.com/vincentcatillon/react-native-confetti-cannon/issues",
     "email": "contact@vincent-catillon.fr"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vincentcatillon/react-native-confetti-cannon.git"
+  },
   "keywords": [
     "react",
     "react-native",
