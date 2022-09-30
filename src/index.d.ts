@@ -6,6 +6,10 @@ export interface ExplosionProps {
     x: number;
     y: number
   };
+  window?: {
+    width: number,
+    height: number,
+  },
   explosionSpeed?: number;
   fallSpeed?: number;
   colors?: string[];
