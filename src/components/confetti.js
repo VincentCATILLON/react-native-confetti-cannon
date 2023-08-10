@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   confetti: {
     position: 'absolute',
     left: 0,
-    bottom: 0
+    bottom: 0,
+    zIndex: Number.MAX_VALUE
   },
   rounded: {
     borderRadius: 100
